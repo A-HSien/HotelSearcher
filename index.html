@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>飯店搜尋器</title>
+    <meta charset="utf-8" />
+
+    <link href="assets/sb-admin-2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="assets/sb-admin-2/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div style="padding:5px;">
+        <app></app>
+    </div>
+
+
+    <!--import ui libs-->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <script src="assets/sb-admin-2/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/sb-admin-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="node_modules/moment/min/moment.min.js"></script>
+    <script src="assets/daterangepicker/daterangepicker.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <!--end import ui libs-->
+
+    <script>
+        System.import('app').catch(function (err) { console.error(err); });
+    </script>
+</body>
+</html>

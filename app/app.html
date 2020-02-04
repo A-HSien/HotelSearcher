@@ -1,0 +1,122 @@
+﻿<style>
+    .mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        filter: alpha(opacity=0);
+        opacity: 0.5;
+        background: #ffffff;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        查詢條件
+    </div>
+    <div class="panel-body">
+        <div class="alert alert-danger" [hidden]="!serverErrorMsg">
+            {{serverErrorMsg}}.
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">城市名稱</label>
+                <div class="col-sm-10">
+                    <select [(ngModel)]="form.city" class="form-control">
+                        <option value="">請選擇城市</option>
+                        <option *ngFor="let city of form.cityList;" 
+                                [value]="city">{{city}}</option>
+                    </select>
+                    <div class="error-block">{{form.cityErrorMsg}}</div>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label class="col-sm-2 control-label">飯店名稱</label>
+                <div class="col-sm-10">
+                    <input [(ngModel)]="form.hotel"
+                           type="text" class="form-control" placeholder="請輸入飯店名稱">
+                    <div class="error-block">{{form.hotelErrorMsg}}</div>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label">日期區間</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input name="daterange" type="text" class="form-control">
+                    </div>
+                    <div class="error-block">{{form.dateErrorMsg}}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default"
+                            [disabled]="!form.isValid || !searchTargets.isAllUnderWaiting"
+                            (click)="searchEvevtHandler()">
+                        查詢
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            (click)="reloadEvevtHandler()">
+                        重整頁面
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div [hidden]="searchTargets.isAllUnderWaiting" class="panel panel-default">
+    <div class="panel-heading">
+        查詢中畫面
+    </div>
+    <div class="panel-body" style="position:relative">
+        <div *ngIf="!searchTargets.isAllFinished" class="mask"></div>
+        <iframe id="viewer" width="100%" height="600px"></iframe>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        查詢結果
+    </div>
+    <div class="panel-body">
+        <!--<pager-info [model]=pager></pager-info>
+        <pager *ngIf="searchResult.length>0" [model]="pager"></pager>-->
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>web name</th>
+                        <th>check in day</th>
+                        <th>check out day</th>
+                        <th>City</th>
+                        <th>Area</th>
+                        <th>Hotel name</th>
+                        <th>Hotel Star</th>
+                        <th>Special Rank</th>
+                        <th>Room type name</th>
+                        <th>Breakfirst</th>
+                        <th>Price(TWD)</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of searchResult; let i = index;">
+                        <td>{{i+1}}</td>
+                        <td>{{data.webName}}</td>
+                        <td>{{form.startDate.format(this.dateFormat)}}</td>
+                        <td>{{form.endDate.format(this.dateFormat)}}</td>
+                        <td>{{form.city}}</td>
+                        <td>{{data.area}}</td>
+                        <td>{{data.hotelName}}</td>
+                        <td>{{data.hotelStar}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{data.price}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+        <!--<pager *ngIf="searchResult.length>0" [model]="pager"></pager>-->
+    </div>
+</div>
